@@ -3,9 +3,9 @@ package com.adamwandoch.adamstudiesapis;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author Adam Wandoch
@@ -23,6 +23,13 @@ public class GuestbookEntryController {
     @GetMapping("/guestbook/v1/getall")
     public GuestbookEntryWrapper getAll() {
         return new GuestbookEntryWrapper(guestbookEntryService.getAllEntries());
+    }
+
+    @PostMapping("/save")
+    public ResponseEntity saveEntry(@RequestBody GuestbookEntry entry) {
+        System.out.println(entry);
+        guestbookEntryService.saveEntry(entry);
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     @GetMapping("/addtest")
