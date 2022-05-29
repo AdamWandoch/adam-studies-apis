@@ -28,4 +28,7 @@ public class GuestbookEntryService {
         guestbookEntryRepository.save(entry);
     }
 
+    public void clear() {
+        guestbookEntryRepository.deleteAll();
+    }
 }

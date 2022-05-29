@@ -32,4 +32,11 @@ public class GuestbookEntryController {
         guestbookEntryService.saveEntry(entry);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    @GetMapping("/guestbook/v1/clear")
+    public String clear() {
+        LOG.info("[GUESTBOOK : clearing all guestbook data]");
+        guestbookEntryService.clear();
+        return "Guestbook records cleared";
+    }
 }
