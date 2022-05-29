@@ -37,4 +37,6 @@ public class GuestbookEntryController {
         GuestbookEntry entry = new GuestbookEntry(0,"author", "content");
         guestbookEntryService.saveEntry(entry);
     }
+
+
 }
