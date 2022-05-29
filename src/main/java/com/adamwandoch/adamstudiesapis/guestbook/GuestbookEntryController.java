@@ -22,21 +22,14 @@ public class GuestbookEntryController {
 
     @GetMapping("/guestbook/v1/getall")
     public GuestbookEntryWrapper getAll() {
+        LOG.info("[GUESTBOOK : GETALL get endpoint requested]");
         return new GuestbookEntryWrapper(guestbookEntryService.getAllEntries());
     }
 
-    @PostMapping("/save")
+    @PostMapping("/guestbook/v1/save")
     public ResponseEntity saveEntry(@RequestBody GuestbookEntry entry) {
-        System.out.println(entry);
+        LOG.info("[GUESTBOOK : SAVE post endpoint requested]");
         guestbookEntryService.saveEntry(entry);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-    @GetMapping("/addtest")
-    public void addTest() {
-        GuestbookEntry entry = new GuestbookEntry(0,"author", "content");
-        guestbookEntryService.saveEntry(entry);
-    }
-
-
 }

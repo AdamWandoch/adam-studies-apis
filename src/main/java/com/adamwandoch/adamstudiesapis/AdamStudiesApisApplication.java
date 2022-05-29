@@ -9,5 +9,4 @@ public class AdamStudiesApisApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(AdamStudiesApisApplication.class, args);
 	}
-
 }
