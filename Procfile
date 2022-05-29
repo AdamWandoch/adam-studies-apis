@@ -1,0 +1,1 @@
+web: java -jar target/adam-studies-apis-0.0.1-SNAPSHOT.jar
