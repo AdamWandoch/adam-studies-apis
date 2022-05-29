@@ -1,4 +1,4 @@
-package com.adamwandoch.adamstudiesapis;
+package com.adamwandoch.adamstudiesapis.guestbook;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

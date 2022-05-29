@@ -1,4 +1,4 @@
-package com.adamwandoch.adamstudiesapis;
+package com.adamwandoch.adamstudiesapis.guestbook;
 
 import org.springframework.data.repository.CrudRepository;
 

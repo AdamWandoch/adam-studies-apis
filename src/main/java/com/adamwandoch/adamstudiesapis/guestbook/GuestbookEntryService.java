@@ -1,4 +1,4 @@
-package com.adamwandoch.adamstudiesapis;
+package com.adamwandoch.adamstudiesapis.guestbook;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
