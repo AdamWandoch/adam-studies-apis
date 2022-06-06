@@ -1,1 +1,1 @@
-# API for database access for personal projects.
+# API for database access for my personal projects.
