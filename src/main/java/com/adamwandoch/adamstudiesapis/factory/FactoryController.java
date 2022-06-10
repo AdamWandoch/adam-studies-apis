@@ -22,13 +22,13 @@ public class FactoryController {
 
     @GetMapping("/factory/v1/get")
     public ProductionLineDataWrapper getAll() {
-        System.out.println("[ FACTORY ] : get method called");
+        LOG.info("[ FACTORY ] : get method called");
         return new ProductionLineDataWrapper(repository.getData());
     }
 
     @PostMapping("/factory/v1/save")
     public ResponseEntity saveData(@RequestBody ProductionLineData data) {
-        System.out.println("[ FACTORY ] : save method called");
+        LOG.info("[ FACTORY ] : save method called");
         repository.saveData(data);
         return ResponseEntity.ok(HttpStatus.OK);
     }
