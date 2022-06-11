@@ -7,6 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 /**
  * @author Adam Wandoch
  */
@@ -18,18 +20,18 @@ public class FactoryController {
     public static final Logger LOG = LoggerFactory.getLogger(FactoryController.class);
 
     @Autowired
-    private ProductionLineDataService repository;
+    private ProductionStatusService statusRepoService;
 
-    @GetMapping("/factory/v1/get")
-    public ProductionLineDataWrapper getAll() {
-        LOG.info("[ FACTORY ] : get method called");
-        return new ProductionLineDataWrapper(repository.getData());
+    @GetMapping("/factory/v1/getstatus")
+    public ArrayList<ProductionStatus> getStatus() {
+        LOG.info("[ FACTORY ] : get status called");
+        return statusRepoService.getStatus();
     }
 
-    @PostMapping("/factory/v1/save")
-    public ResponseEntity saveData(@RequestBody ProductionLineData data) {
-        LOG.info("[ FACTORY ] : save method called");
-        repository.saveData(data);
+    @PostMapping("/factory/v1/savestatus")
+    public ResponseEntity saveStatus(@RequestBody ProductionStatus data) {
+        LOG.info("[ FACTORY ] : save status called");
+        statusRepoService.saveStatus(data);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 }

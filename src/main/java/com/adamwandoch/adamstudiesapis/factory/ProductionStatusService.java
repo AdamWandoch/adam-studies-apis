@@ -10,21 +10,21 @@ import java.util.ArrayList;
  */
 
 @Service
-public class ProductionLineDataService {
+public class ProductionStatusService {
 
     @Autowired
-    private ProductionLineDataRepository productionLineDataRepository;
+    private ProductionStatusRepository productionLineDataRepository;
 
-    public ProductionLineDataService() {
+    public ProductionStatusService() {
     }
 
-    public ArrayList<ProductionLineData> getData() {
-        ArrayList<ProductionLineData> allData = new ArrayList<>();
+    public ArrayList<ProductionStatus> getStatus() {
+        ArrayList<ProductionStatus> allData = new ArrayList<>();
         productionLineDataRepository.findAll().forEach(allData::add);
         return allData;
     }
 
-    public void saveData(ProductionLineData data) {
+    public void saveStatus(ProductionStatus data) {
         productionLineDataRepository.save(data);
     }
 }

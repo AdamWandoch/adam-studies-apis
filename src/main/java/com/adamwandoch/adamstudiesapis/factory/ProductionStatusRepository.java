@@ -6,5 +6,5 @@ import org.springframework.data.repository.CrudRepository;
  * @author Adam Wandoch
  */
 
-public interface ProductionLineDataRepository extends CrudRepository<ProductionLineData, String> {
+public interface ProductionStatusRepository extends CrudRepository<ProductionStatus, String> {
 }

@@ -19,9 +19,9 @@ public class AdamStudiesApisApplication {
 		SpringApplication.run(AdamStudiesApisApplication.class, args);
 	}
 
-	@Scheduled(fixedDelay = 1000)
-	void initializeSimulation() {
-		factorySimulator.startProduction();
+	@Scheduled(fixedRate = 1000)
+	void runTasks() {
+		factorySimulator.refreshData();
 	}
 }
 

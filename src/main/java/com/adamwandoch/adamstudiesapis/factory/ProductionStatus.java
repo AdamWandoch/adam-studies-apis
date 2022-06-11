@@ -10,7 +10,7 @@ import java.util.Objects;
  */
 
 @Entity
-public class ProductionLineData {
+public class ProductionStatus {
 
     @Id
     @GeneratedValue
@@ -20,17 +20,19 @@ public class ProductionLineData {
     private int sensor2temp;
     private String status;
     private String currentProduct;
+    private int outputRate;
 
-    public ProductionLineData(long id, String lineName, int sensor1temp, int sensor2temp, String status, String currentProduct) {
+    public ProductionStatus(long id, String lineName, int sensor1temp, int sensor2temp, String status, String currentProduct, int outputRate) {
         this.id = id;
         this.lineName = lineName;
         this.sensor1temp = sensor1temp;
         this.sensor2temp = sensor2temp;
         this.status = status;
         this.currentProduct = currentProduct;
+        this.outputRate = outputRate;
     }
 
-    public ProductionLineData() {
+    public ProductionStatus() {
     }
 
     public long getId() {
@@ -81,11 +83,19 @@ public class ProductionLineData {
         this.currentProduct = currentProduct;
     }
 
+    public int getOutputRate() {
+        return outputRate;
+    }
+
+    public void setOutputRate(int outputRate) {
+        this.outputRate = outputRate;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        ProductionLineData that = (ProductionLineData) o;
+        ProductionStatus that = (ProductionStatus) o;
         return id == that.id && sensor1temp == that.sensor1temp && sensor2temp == that.sensor2temp && Objects.equals(lineName, that.lineName) && Objects.equals(status, that.status) && Objects.equals(currentProduct, that.currentProduct);
     }
 
