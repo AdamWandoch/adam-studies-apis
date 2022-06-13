@@ -1,4 +1,4 @@
-package com.adamwandoch.adamstudiesapis.factory;
+package com.adamwandoch.adamstudiesapis.factory.status;
 
 import org.springframework.data.repository.CrudRepository;
 
