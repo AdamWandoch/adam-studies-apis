@@ -43,6 +43,7 @@ public class FactoryController {
     }
 
     // TODO: 14/06/2022 implement a way to control each field individually
+    // EACH LINE'S FIELD CAN BE CONTROLLER USING ID PROPERTY, ENOUGH DATA FOR UI??
 
     @GetMapping("/factory/v1/getoutputs")
     public ArrayList<OutputRecord> getOutputs() {
