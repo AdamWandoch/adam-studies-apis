@@ -20,20 +20,20 @@ public class FactorySimulator {
 
     @Autowired
     private ProductionStatusService statusService;
-    private ArrayList<ProductionStatus> linesData = new ArrayList<>();
+    private ArrayList<ProductionStatus> data;
 
     public FactorySimulator() {
-        initializeArrayList();
     }
 
-    private void initializeArrayList() {
-        LOG.info("[ SIMULATOR ] : initialize ArrayList called");
+    private ArrayList<ProductionStatus> initialData() {
+        LOG.info("[ SIMULATOR ] : initialData() called");
+        ArrayList<ProductionStatus> data = new ArrayList<>();
         int initialTemp = 15;
-        String initialStatus = "producing";
+        String initialStatus = "idling";
         String initialProduct = "none";
         int initialOutputRate = 0;
         for (int i = 0; i < 4; i++) {
-            linesData.add(new ProductionStatus(0,
+            data.add(new ProductionStatus(0,
                     "Line " + (i + 1),
                     initialTemp,
                     initialTemp,
@@ -41,15 +41,21 @@ public class FactorySimulator {
                     initialProduct,
                     initialOutputRate));
         }
+        return data;
     }
 
     public void refreshData() {
+        // FIXME: 14/06/2022 temperature not rising, looks like data is not retrieved from db on each run
         LOG.info("[ SIMULATOR ] : refresh data called");
-        linesData.forEach(p -> {
+        data = statusService.getStatus();
+        LOG.info("[ SIMULATOR ] : dataSize() : " + data.size());
+        if (data.size() < 1) data = initialData();
+        data.forEach(p -> {
             int random = getRandomNumber(0, 10);
-            if (random > 8 && p.getStatus() == "producing") {
-                p.setSensor1temp(p.getSensor1temp() + getRandomNumber(0, 2));
-                p.setSensor2temp(p.getSensor2temp() + getRandomNumber(0, 2));
+//            if (random > 8 && p.getStatus() == "producing") {
+            if (p.getStatus() == "producing") {
+                p.setSensor1temp(p.getSensor1temp() + getRandomNumber(1, 2));
+                p.setSensor2temp(p.getSensor2temp() + getRandomNumber(1, 2));
             }
             // slowly cools down if idling
             if (p.getStatus() == "idling") {

@@ -27,4 +27,15 @@ public class ProductionStatusService {
     public void saveStatus(ProductionStatus data) {
         productionLineDataRepository.save(data);
     }
+
+    public void setStatus(ProductionStatus oldStatus) {
+        ProductionStatus newStatus = new ProductionStatus(oldStatus.getId(),
+                oldStatus.getLineName(),
+                oldStatus.getSensor1temp(),
+                oldStatus.getSensor2temp(),
+                "",
+                "",
+                0);
+
+    }
 }
