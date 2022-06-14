@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.stream.Collectors;
 
 /**
  * @author Adam Wandoch
@@ -32,5 +31,6 @@ public class OutputService {
     public long getTotalsReport() {
         // TODO: 14/06/2022 decide what do you need in the totals report
         // FIXME: 14/06/2022 implement the above
+        return -1;
     }
 }

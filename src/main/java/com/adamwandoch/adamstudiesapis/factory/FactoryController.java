@@ -34,12 +34,15 @@ public class FactoryController {
         return statusService.getStatus();
     }
 
+// THIS ENDPOINT CONTROLS EACH FIELD OF THE STATUS BUT ONLY ALL TOGETHER
     @PostMapping("/factory/v1/savestatus")
     public ResponseEntity saveStatus(@RequestBody ProductionStatus data) {
         LOG.info("[ FACTORY ] : save status called");
         statusService.saveStatus(data);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
+    // TODO: 14/06/2022 implement a way to control each field individually
 
     @GetMapping("/factory/v1/getoutputs")
     public ArrayList<OutputRecord> getOutputs() {
