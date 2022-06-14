@@ -45,20 +45,17 @@ public class FactorySimulator {
     }
 
     public void refreshData() {
-        // FIXME: 14/06/2022 temperature not rising, looks like data is not retrieved from db on each run
         LOG.info("[ SIMULATOR ] : refresh data called");
         data = statusService.getStatus();
-        LOG.info("[ SIMULATOR ] : dataSize() : " + data.size());
         if (data.size() < 1) data = initialData();
         data.forEach(p -> {
             int random = getRandomNumber(0, 10);
-//            if (random > 8 && p.getStatus() == "producing") {
-            if (p.getStatus() == "producing") {
+            if (random > 8 && p.getStatus().equals("producing")) {
                 p.setSensor1temp(p.getSensor1temp() + getRandomNumber(1, 2));
                 p.setSensor2temp(p.getSensor2temp() + getRandomNumber(1, 2));
             }
             // slowly cools down if idling
-            if (p.getStatus() == "idling") {
+            if (p.getStatus().equals("producing")) {
                 if (p.getSensor1temp() > 15) {
                     p.setSensor1temp(p.getSensor1temp() - getRandomNumber(0, 1));
                 }

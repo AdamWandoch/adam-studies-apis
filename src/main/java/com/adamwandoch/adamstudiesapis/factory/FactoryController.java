@@ -36,13 +36,4 @@ public class FactoryController {
         statusRepoService.saveStatus(data);
         return ResponseEntity.ok(HttpStatus.OK);
     }
-
-//    @PostMapping("/factory/v1/setstatus")
-//    public ResponseEntity setStatus(@RequestBody ProductionStatus data) {
-//        LOG.info("[ FACTORY ] : set status called");
-//        statusRepoService.setStatus(data);
-//        return ResponseEntity.ok(HttpStatus.OK);
-//    }
-//
-//    // TODO: 13/06/2022 implement setstatus (control production status between idling and producing)
 }
