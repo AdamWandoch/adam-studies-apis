@@ -92,16 +92,16 @@ public class ProductionStatus {
     }
 
     @Override
+    public int hashCode() {
+        return Objects.hash(id, lineName, sensor1temp, sensor2temp, status, currentProduct);
+    }
+
+    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ProductionStatus that = (ProductionStatus) o;
         return id == that.id && sensor1temp == that.sensor1temp && sensor2temp == that.sensor2temp && Objects.equals(lineName, that.lineName) && Objects.equals(status, that.status) && Objects.equals(currentProduct, that.currentProduct);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, lineName, sensor1temp, sensor2temp, status, currentProduct);
     }
 
     @Override

@@ -1,49 +1,24 @@
 package com.adamwandoch.adamstudiesapis.factory.output;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.util.Objects;
 
 /**
  * @author Adam Wandoch
  */
 
-@Entity
-public class OutputRecord {
+public class TotalsRecord {
 
-    @Id
-    @GeneratedValue
-    private long id;
     private String lineName;
     private String productName;
     private long amount;
 
-    public OutputRecord() {
+    public TotalsRecord() {
     }
 
-    public OutputRecord(long id, String lineName, String productName, long amount) {
-        this.id = id;
+    public TotalsRecord(String lineName, String productName, long amount) {
         this.lineName = lineName;
         this.productName = productName;
         this.amount = amount;
-    }
-
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
-    public String getProductName() {
-        return productName;
-    }
-
-    public void setProductName(String productName) {
-        this.productName = productName;
     }
 
     public String getLineName() {
@@ -52,6 +27,14 @@ public class OutputRecord {
 
     public void setLineName(String lineName) {
         this.lineName = lineName;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
     }
 
     public long getAmount() {
@@ -64,23 +47,22 @@ public class OutputRecord {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, productName, lineName, amount);
+        return Objects.hash(lineName, productName, amount);
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OutputRecord that = (OutputRecord) o;
-        return id == that.id && amount == that.amount && Objects.equals(productName, that.productName) && Objects.equals(lineName, that.lineName);
+        TotalsRecord that = (TotalsRecord) o;
+        return amount == that.amount && Objects.equals(lineName, that.lineName) && Objects.equals(productName, that.productName);
     }
 
     @Override
     public String toString() {
-        return "OutputRecord{" +
-                "id=" + id +
+        return "TotalsRecord{" +
+                "lineName='" + lineName + '\'' +
                 ", productName='" + productName + '\'' +
-                ", lineName='" + lineName + '\'' +
                 ", amount=" + amount +
                 '}';
     }

@@ -1,5 +1,7 @@
 package com.adamwandoch.adamstudiesapis.factory;
 
+import com.adamwandoch.adamstudiesapis.factory.output.OutputRecord;
+import com.adamwandoch.adamstudiesapis.factory.output.OutputService;
 import com.adamwandoch.adamstudiesapis.factory.status.ProductionStatus;
 import com.adamwandoch.adamstudiesapis.factory.status.ProductionStatusService;
 import org.slf4j.Logger;
@@ -20,13 +22,16 @@ public class FactorySimulator {
 
     @Autowired
     private ProductionStatusService statusService;
-    private ArrayList<ProductionStatus> data;
+    @Autowired
+    private OutputService outputService;
+    private ArrayList<ProductionStatus> status;
+    private ArrayList<OutputRecord> outputs = new ArrayList<>();
 
     public FactorySimulator() {
     }
 
-    private ArrayList<ProductionStatus> initialData() {
-        LOG.info("[ SIMULATOR ] : initialData() called");
+    private ArrayList<ProductionStatus> initialStatus() {
+        LOG.info("[ SIMULATOR ] : initialStatus() called");
         ArrayList<ProductionStatus> data = new ArrayList<>();
         int initialTemp = 15;
         String initialStatus = "idling";
@@ -46,29 +51,38 @@ public class FactorySimulator {
 
     public void runFactoryCycle() {
         LOG.info("[ SIMULATOR ] : runFactoryCycle() called");
-        data = statusService.getStatus();
-        if (data.size() < 1) data = initialData();
-        data.forEach(p -> {
+        status = statusService.getStatus();
+        if (status.size() < 1) status = initialStatus();
+        status.forEach(s -> {
             int random = getRandomNumber(0, 10);
-            if (random > 8 && p.getStatus().equals("producing")) {
-                p.setSensor1temp(p.getSensor1temp() + getRandomNumber(1, 2));
-                p.setSensor2temp(p.getSensor2temp() + getRandomNumber(1, 2));
+            if (s.getStatus().equals("producing")) {
+                if (random > 8) {
+                    s.setSensor1temp(s.getSensor1temp() + getRandomNumber(1, 2));
+                    s.setSensor2temp(s.getSensor2temp() + getRandomNumber(1, 2));
+                }
+                logOutputRecord(s);
             }
             // slowly cools down if idling
-            if (p.getStatus().equals("producing")) {
-                if (p.getSensor1temp() > 15) {
-                    p.setSensor1temp(p.getSensor1temp() - getRandomNumber(0, 1));
+            if (s.getStatus().equals("idling")) {
+                if (s.getSensor1temp() > 15) {
+                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 1));
                 }
-                if (p.getSensor2temp() > 15) {
-                    p.setSensor2temp(p.getSensor2temp() - getRandomNumber(0, 1));
+                if (s.getSensor2temp() > 15) {
+                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 1));
                 }
             }
-            statusService.saveStatus(p);
+            statusService.saveStatus(s);
         });
     }
 
+    private void logOutputRecord(ProductionStatus status) {
+        outputService.saveOutput(new OutputRecord(0,
+                status.getLineName(),
+                status.getCurrentProduct(),
+                status.getOutputRate()));
+    }
+
     private int getRandomNumber(int min, int max) {
-        int result = (int) ((Math.random() * (max - min)) + min);
-        return result;
+        return (int) ((Math.random() * (max - min)) + min);
     }
 }
