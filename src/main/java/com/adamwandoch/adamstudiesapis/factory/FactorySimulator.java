@@ -44,8 +44,8 @@ public class FactorySimulator {
         return data;
     }
 
-    public void refreshData() {
-        LOG.info("[ SIMULATOR ] : refresh data called");
+    public void runFactoryCycle() {
+        LOG.info("[ SIMULATOR ] : runFactoryCycle() called");
         data = statusService.getStatus();
         if (data.size() < 1) data = initialData();
         data.forEach(p -> {

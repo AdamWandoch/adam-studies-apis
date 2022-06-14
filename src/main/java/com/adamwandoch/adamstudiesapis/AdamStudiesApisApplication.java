@@ -21,7 +21,7 @@ public class AdamStudiesApisApplication {
 
 	@Scheduled(fixedRate = 1000)
 	void runTasks() {
-		factorySimulator.refreshData();
+		factorySimulator.runFactoryCycle();
 	}
 }
 
