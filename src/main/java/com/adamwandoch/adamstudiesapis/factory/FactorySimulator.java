@@ -54,10 +54,11 @@ public class FactorySimulator {
         status = statusService.getStatus();
         if (status.size() < 1) status = initialStatus();
         status.forEach(s -> {
-            int random = getRandomNumber(0, 10);
             if (s.getStatus().equals("producing")) {
-                if (random > 8) {
+                if (getRandomNumber(0, 10) > 8) {
                     s.setSensor1temp(s.getSensor1temp() + getRandomNumber(1, 2));
+                }
+                if (getRandomNumber(0, 10) > 8) {
                     s.setSensor2temp(s.getSensor2temp() + getRandomNumber(1, 2));
                 }
                 logOutputRecord(s);
@@ -65,10 +66,10 @@ public class FactorySimulator {
             // slowly cools down if idling
             if (s.getStatus().equals("idling")) {
                 if (s.getSensor1temp() > 15) {
-                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 1));
+                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(1, 2));
                 }
                 if (s.getSensor2temp() > 15) {
-                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 1));
+                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(1, 2));
                 }
             }
             statusService.saveStatus(s);

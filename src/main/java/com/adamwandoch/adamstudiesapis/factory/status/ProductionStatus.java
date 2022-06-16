@@ -56,7 +56,7 @@ public class ProductionStatus {
     }
 
     public void setSensor1temp(int sensor1temp) {
-        this.sensor1temp = sensor1temp;
+        this.sensor1temp = Math.max(sensor1temp, 15);
     }
 
     public int getSensor2temp() {
@@ -64,7 +64,7 @@ public class ProductionStatus {
     }
 
     public void setSensor2temp(int sensor2temp) {
-        this.sensor2temp = sensor2temp;
+        this.sensor2temp = Math.max(sensor2temp, 15);
     }
 
     public String getStatus() {
