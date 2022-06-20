@@ -51,7 +51,7 @@ public class FactorySimulator {
 
     public void runFactoryCycle() {
         LOG.info("[ SIMULATOR ] : runFactoryCycle() called");
-        status = statusService.getStatus();
+        ArrayList<ProductionStatus> status = statusService.getStatus();
         if (status.size() < 1) status = initialStatus();
         status.forEach(s -> {
             if (s.getStatus().equals("producing")) {
@@ -63,14 +63,18 @@ public class FactorySimulator {
                 }
                 logOutputRecord(s);
             }
-            // slowly cools down if idling
-            if (s.getStatus().equals("idling")) {
+            // cools down if idling or failing
+            if (s.getStatus().equals("idling") || s.getStatus().equals("failure")) {
                 if (s.getSensor1temp() > 15) {
                     s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 3));
                 }
                 if (s.getSensor2temp() > 15) {
                     s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 3));
                 }
+            }
+            // set to fail if temperature above 40 degrees
+            if (s.getSensor1temp() > 40 || s.getSensor2temp() > 40) {
+                s.setStatus("failure");
             }
             statusService.saveStatus(s);
         });

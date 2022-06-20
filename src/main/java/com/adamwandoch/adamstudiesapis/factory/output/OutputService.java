@@ -27,10 +27,4 @@ public class OutputService {
     public void saveOutput(OutputRecord data) {
         outputRepository.save(data);
     }
-
-    public long getTotalsReport() {
-        // TODO: 14/06/2022 decide what do you need in the totals report
-        // FIXME: 14/06/2022 implement the above
-        return -1;
-    }
 }

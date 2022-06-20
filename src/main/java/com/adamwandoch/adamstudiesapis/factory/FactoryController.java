@@ -30,30 +30,18 @@ public class FactoryController {
 
     @GetMapping("/factory/v1/getstatus")
     public ArrayList<ProductionStatus> getStatus() {
-        LOG.info("[ FACTORY ] : get status called");
         return statusService.getStatus();
     }
 
 // THIS ENDPOINT CONTROLS EACH FIELD OF THE STATUS BUT ONLY ALL TOGETHER
     @PostMapping("/factory/v1/savestatus")
     public ResponseEntity saveStatus(@RequestBody ProductionStatus data) {
-        LOG.info("[ FACTORY ] : save status called");
         statusService.saveStatus(data);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-    // TODO: 14/06/2022 implement a way to control each field individually
-    // EACH LINE'S FIELD CAN BE CONTROLLER USING ID PROPERTY, ENOUGH DATA FOR UI??
-
     @GetMapping("/factory/v1/getoutputs")
     public ArrayList<OutputRecord> getOutputs() {
-        LOG.info("[ FACTORY ] : get outputs called");
         return outputService.getOutputRecords();
-    }
-
-    @GetMapping("/factory/v1/gettotalsreport")
-    public long getTotalsReport() {
-        LOG.info("[ FACTORY ] : get totals report called");
-        return outputService.getTotalsReport();
     }
 }
