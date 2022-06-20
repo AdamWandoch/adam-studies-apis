@@ -66,10 +66,10 @@ public class FactorySimulator {
             // slowly cools down if idling
             if (s.getStatus().equals("idling")) {
                 if (s.getSensor1temp() > 15) {
-                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(1, 2));
+                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 3));
                 }
                 if (s.getSensor2temp() > 15) {
-                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(1, 2));
+                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 3));
                 }
             }
             statusService.saveStatus(s);
