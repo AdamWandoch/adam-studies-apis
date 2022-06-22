@@ -37,7 +37,8 @@ public class FactorySimulator {
         String initialStatus = "idling";
         String initialProduct = "none";
         int initialOutputRate = 0;
-        for (int i = 0; i < 4; i++) {
+        int numberOfLines = 24;
+        for (int i = 0; i < numberOfLines; i++) {
             data.add(new ProductionStatus(0,
                     "Line " + (i + 1),
                     initialTemp,
@@ -50,30 +51,28 @@ public class FactorySimulator {
     }
 
     public void runFactoryCycle() {
-        LOG.info("[ SIMULATOR ] : runFactoryCycle() called");
         ArrayList<ProductionStatus> status = statusService.getStatus();
         if (status.size() < 1) status = initialStatus();
         status.forEach(s -> {
             if (s.getStatus().equals("producing")) {
-                if (getRandomNumber(0, 10) > 8) {
-                    s.setSensor1temp(s.getSensor1temp() + getRandomNumber(1, 2));
+                if (getRandomNumber(0, 10) > 7) {
+                    s.setSensor1temp(s.getSensor1temp() + getRandomNumber(1, 3));
                 }
-                if (getRandomNumber(0, 10) > 8) {
-                    s.setSensor2temp(s.getSensor2temp() + getRandomNumber(1, 2));
+                if (getRandomNumber(0, 10) > 7) {
+                    s.setSensor2temp(s.getSensor2temp() + getRandomNumber(1, 3));
                 }
                 logOutputRecord(s);
-            }
-            // cools down if idling or failing
-            if (s.getStatus().equals("idling") || s.getStatus().equals("failure")) {
+            } else {
+                // cools down if not producing
                 if (s.getSensor1temp() > 15) {
-                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 3));
+                    s.setSensor1temp(s.getSensor1temp() - getRandomNumber(0, 2));
                 }
                 if (s.getSensor2temp() > 15) {
-                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 3));
+                    s.setSensor2temp(s.getSensor2temp() - getRandomNumber(0, 2));
                 }
             }
             // set to fail if temperature above 40 degrees
-            if (s.getSensor1temp() > 40 || s.getSensor2temp() > 40) {
+            if (s.getSensor1temp() > 30 || s.getSensor2temp() > 30) {
                 s.setStatus("failure");
             }
             statusService.saveStatus(s);
